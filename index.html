@@ -708,7 +708,7 @@ function submitAudit(){
   const btn=document.getElementById('a-submit-btn');
   btn.textContent='Submitting…';btn.disabled=true;
   const payload={type:'audit',timestamp:new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),name,phone,email,biz,category,url,city,budget,goal,running,source,msg};
-  if(GAS_URL&&GAS_URL!=='PASTE_YOUR_GAS_URL_HERE'){
+  if(GAS_URL&&GAS_URL!=='https://script.google.com/macros/s/AKfycbzcpzarWfIZcqfBz1Z4bqXsZZCyXWLGazgC2gmGYctnEdQJGFcTnbJTjvKg0x-T121r/exec'){
     fetch(GAS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(()=>{});
   }
   let t='Hi Vaibhav! I just submitted the free audit form on Vaibhyx Growth.\n\n';
