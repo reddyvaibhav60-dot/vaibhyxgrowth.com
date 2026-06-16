@@ -702,7 +702,7 @@ function submitSvc(){
 function openAudit(){document.getElementById('auditOverlay').classList.add('open');document.body.classList.add('modal-open');}
 function closeAudit(){document.getElementById('auditOverlay').classList.remove('open');document.body.classList.remove('modal-open');}
 function aerr(m){const e=document.getElementById('a-err');if(m){e.textContent=m;e.style.display='block';}else{e.style.display='none';}}
-function submitAudit(){
+const GAS_URL = "https://script.google.com/macros/s/AKfycbzcpzarWfIZcqfBz1Z4bqXsZZCyXWLGazgC2gmGYctnEdQJGFcTnbJTjvKg0x-T121r/exec";function submitAudit(){
   const name=val('a-name'),phone=val('a-phone'),email=val('a-email'),biz=val('a-biz'),category=val('a-category'),url=val('a-url'),city=val('a-city'),budget=val('a-budget'),goal=val('a-goal'),running=val('a-running'),source=val('a-source'),msg=val('a-msg');
   if(!name||!phone||!email||!biz||!category){aerr('Please fill name, phone, email, business name and category.');return;}
   const btn=document.getElementById('a-submit-btn');
