@@ -15,11 +15,14 @@
   --accent:#C8F24A;--accent2:#A8E635;--ink:#080B12;
   --ease:cubic-bezier(.16,1,.3,1);
 }
-html{scroll-behavior:smooth;cursor:none}
+html{scroll-behavior:smooth}
+/* native cursor by default; custom cursor only on real-mouse devices */
+#cur,#cur-ring{display:none}
+@media (hover:hover) and (pointer:fine){html{cursor:none}#cur,#cur-ring{display:block}}
 body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 body.modal-open{overflow:hidden}
-a{color:inherit;text-decoration:none;cursor:none}
-button{cursor:none;font-family:inherit}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
 .mono{font-family:'Mono',monospace}
 .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
 @media(max-width:600px){.wrap{padding:0 18px}}
@@ -176,7 +179,7 @@ h2{font-family:'Instrument',sans-serif;font-size:clamp(2rem,4.5vw,3.2rem);letter
 .faq-list{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
 .qa{background:var(--s2);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:border-color .2s}
 .qa.open{border-color:rgba(200,242,74,.3)}
-.qa-head{display:flex;align-items:center;justify-content:space-between;padding:22px 26px;cursor:none;user-select:none}
+.qa-head{display:flex;align-items:center;justify-content:space-between;padding:22px 26px;cursor:pointer;user-select:none}
 .qa-head h5{font-size:1.05rem;font-weight:600;line-height:1.3}
 .qa-icon{width:30px;height:30px;border-radius:8px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);flex:none;transition:transform .3s var(--ease),border-color .2s,color .2s}
 .qa.open .qa-icon{transform:rotate(180deg);border-color:rgba(200,242,74,.4);color:var(--accent)}
@@ -247,6 +250,37 @@ footer{border-top:1px solid var(--border);padding:50px 0 60px}
 
 /* ── NOISE TEXTURE ── */
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");background-size:200px;opacity:.025;pointer-events:none;z-index:9997}
+
+/* ── MOBILE REFINEMENTS ── */
+@media (max-width:600px){
+  section{padding:64px 0}
+  .hero{padding:100px 0 60px;min-height:auto}
+  h1{font-size:clamp(2.1rem,9vw,3rem)}
+  .hero-lede{font-size:1.02rem}
+  .hero-ctas{flex-direction:column;align-items:stretch}
+  .hero-ctas .btn{justify-content:center;width:100%}
+  .hero-metrics{gap:10px}
+  .metric{flex:1 1 100%;padding:14px 16px}
+  .sec-head{margin-bottom:36px}
+  .bigcta{padding:44px 24px}
+  .bigcta-btns{flex-direction:column;align-items:stretch}
+  .bigcta-btns .btn{justify-content:center;width:100%}
+  .btn{padding:.85em 1.3em;font-size:1rem}
+  .foot{flex-direction:column;text-align:center;gap:16px}
+  .modal{padding:26px 22px;border-radius:20px}
+  .modal h3{font-size:1.4rem}
+  /* larger tap targets for nav + actions */
+  .wa-fab{bottom:18px;right:18px}
+}
+@media (max-width:380px){
+  .wrap{padding:0 14px}
+  h1{font-size:1.95rem}
+}
+/* tame heavy hover transforms on touch so taps don't feel janky */
+@media (hover:none){
+  .svc:active{transform:scale(.99)}
+  .step:hover{transform:none!important}
+}
 </style></head><body>
 
 <!-- LOADER -->
@@ -555,21 +589,22 @@ window.addEventListener('DOMContentLoaded',()=>{
 });
 function startAnims(){ animHeroWords(); initParticles(); }
 
-// ── CUSTOM CURSOR (desktop only) ──
-const isTouchDevice = window.matchMedia('(hover:none)').matches;
-const cur=document.getElementById('cur'), curRing=document.getElementById('cur-ring');
-if(isTouchDevice){cur.style.display='none';curRing.style.display='none';}
-let mx=window.innerWidth/2,my=window.innerHeight/2,rx=mx,ry=my;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx-5}px,${my-5}px)`;});
-(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curRing.style.transform=`translate(${rx-18}px,${ry-18}px)`;requestAnimationFrame(animRing);})();
-document.querySelectorAll('a,button,.svc,.step,.qa,.qa-head,.logo,.wa-fab').forEach(el=>{
-  el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));
-  el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));
-});
-document.addEventListener('mousedown',()=>document.body.classList.add('clicking'));
-document.addEventListener('mouseup',()=>document.body.classList.remove('clicking'));
-document.addEventListener('mouseleave',()=>{cur.style.opacity=0;curRing.style.opacity=0;});
-document.addEventListener('mouseenter',()=>{cur.style.opacity=1;curRing.style.opacity=1;});
+// ── CUSTOM CURSOR (mouse devices only) ──
+const HAS_MOUSE = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+if (HAS_MOUSE) {
+  const cur=document.getElementById('cur'), curRing=document.getElementById('cur-ring');
+  let mx=window.innerWidth/2,my=window.innerHeight/2,rx=mx,ry=my;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx-5}px,${my-5}px)`;});
+  (function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curRing.style.transform=`translate(${rx-18}px,${ry-18}px)`;requestAnimationFrame(animRing);})();
+  document.querySelectorAll('a,button,.svc,.step,.qa,.qa-head,.logo,.wa-fab').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));
+  });
+  document.addEventListener('mousedown',()=>document.body.classList.add('clicking'));
+  document.addEventListener('mouseup',()=>document.body.classList.remove('clicking'));
+  document.addEventListener('mouseleave',()=>{cur.style.opacity=0;curRing.style.opacity=0;});
+  document.addEventListener('mouseenter',()=>{cur.style.opacity=1;curRing.style.opacity=1;});
+}
 
 // ── RIPPLE ──
 document.querySelectorAll('.btn').forEach(btn=>{
@@ -582,16 +617,18 @@ document.querySelectorAll('.btn').forEach(btn=>{
   });
 });
 
-// ── MAGNETIC BUTTONS ──
-document.querySelectorAll('.btn-accent,.btn-ghost,.btn-wa,.btn-dark').forEach(btn=>{
-  btn.addEventListener('mousemove',e=>{
-    const r=btn.getBoundingClientRect();
-    const x=(e.clientX-r.left-r.width/2)*.28;
-    const y=(e.clientY-r.top-r.height/2)*.28;
-    btn.style.transform=`translate(${x}px,${y}px)`;
+// ── MAGNETIC BUTTONS (mouse devices only) ──
+if (HAS_MOUSE) {
+  document.querySelectorAll('.btn-accent,.btn-ghost,.btn-wa,.btn-dark').forEach(btn=>{
+    btn.addEventListener('mousemove',e=>{
+      const r=btn.getBoundingClientRect();
+      const x=(e.clientX-r.left-r.width/2)*.28;
+      const y=(e.clientY-r.top-r.height/2)*.28;
+      btn.style.transform=`translate(${x}px,${y}px)`;
+    });
+    btn.addEventListener('mouseleave',()=>btn.style.transform='');
   });
-  btn.addEventListener('mouseleave',()=>btn.style.transform='');
-});
+}
 
 // ── NAV SCROLL ──
 let lastY=0;
@@ -621,17 +658,19 @@ function checkReveal(){
 window.addEventListener('load',()=>setTimeout(checkReveal,400));
 window.addEventListener('DOMContentLoaded',()=>setTimeout(checkReveal,200));
 
-// ── 3D CARD TILT ──
-document.querySelectorAll('.svc').forEach(card=>{
-  card.addEventListener('mousemove',e=>{
-    const r=card.getBoundingClientRect();
-    const x=(e.clientX-r.left)/r.width-.5;
-    const y=(e.clientY-r.top)/r.height-.5;
-    card.style.transform=`perspective(700px) rotateY(${x*12}deg) rotateX(${-y*12}deg) translateY(-6px) scale(1.01)`;
+// ── 3D CARD TILT (mouse devices only) ──
+if (HAS_MOUSE) {
+  document.querySelectorAll('.svc').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+      card.style.transform=`perspective(700px) rotateY(${x*12}deg) rotateX(${-y*12}deg) translateY(-6px) scale(1.01)`;
+    });
+    card.addEventListener('mouseleave',()=>{card.style.transform=''; card.style.transition='transform .5s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s';});
+    card.addEventListener('mouseenter',()=>{card.style.transition='border-color .3s,box-shadow .3s';});
   });
-  card.addEventListener('mouseleave',()=>{card.style.transform=''; card.style.transition='transform .5s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s';});
-  card.addEventListener('mouseenter',()=>{card.style.transition='border-color .3s,box-shadow .3s';});
-});
+}
 
 // ── HERO WORD REVEAL ──
 function animHeroWords(){
@@ -673,6 +712,7 @@ function toggleFaq(el){
 // ── SERVICE MODAL ──
 const SVC = {"google-ads": {"id": "google-ads", "title": "Google Ads Management", "blurb": "High-intent Search, Performance Max & Shopping campaigns built for profitable conversions.", "features": ["Search, Performance Max & Shopping", "Remarketing & audience strategy", "Conversion tracking & ROAS focus", "Weekly optimisation + reporting"], "badge": "", "icon": "<circle cx=\"10\" cy=\"10\" r=\"6\"/><path d=\"M14.5 14.5 L21 21\"/><path d=\"M7.5 12 L9.5 9.8 L11.3 11.2 L13.5 8.2\"/>"}, "meta": {"id": "meta", "title": "Meta Ads Management", "blurb": "Facebook & Instagram full-funnel campaigns that turn scrollers into buyers.", "features": ["Campaign creation & creative direction", "Audience targeting & lookalikes", "Pixel & conversion tracking setup", "Retargeting & funnel optimisation"], "badge": "", "icon": "<circle cx=\"9\" cy=\"12\" r=\"5\"/><circle cx=\"16\" cy=\"12\" r=\"5\"/>"}, "seo": {"id": "seo", "title": "SEO Optimization", "blurb": "Rank for searches that matter and pull compounding, intent-rich organic traffic month after month.", "features": ["Technical SEO audit & fixes", "Keyword research & on-page optimisation", "Local SEO & Google Business Profile", "Content strategy + monthly reporting"], "badge": "", "icon": "<circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\"/><path d=\"M15.5 15.5 L21 21\"/><path d=\"M7.5 12 L9.5 9.8 L11.3 11.2 L13.5 8.2\"/>"}, "linkedin": {"id": "linkedin", "title": "LinkedIn B2B Lead Gen", "blurb": "Reach decision-makers with precise LinkedIn Ads and lead-gen forms that fill your pipeline.", "features": ["Professional & firmographic targeting", "Lead-gen forms & document ads", "Retargeting warm audiences", "Lead-quality optimisation"], "badge": "", "icon": "<rect x=\"3\" y=\"7.5\" width=\"18\" height=\"12.5\" rx=\"2\"/><path d=\"M8 7.5 V6 a2 2 0 0 1 2-2 h4 a2 2 0 0 1 2 2 v1.5\"/><path d=\"M3 12 h18\"/>"}, "tracking": {"id": "tracking", "title": "Tracking & Analytics", "blurb": "A clean measurement foundation so every rupee of ad spend is accountable from day one.", "features": ["Google Tag Manager configuration", "GA4 setup & event tracking", "Microsoft Clarity heatmaps", "Conversion goals & dashboards"], "badge": "", "icon": "<path d=\"M4 5 V19 H20\"/><path d=\"M7 15 L11 11 L14 13 L19 6.5\"/>"}, "landing": {"id": "landing", "title": "Landing Page Design", "blurb": "Fast, focused, conversion-built pages that finally make your traffic pay off.", "features": ["Conversion-focused copy & layout", "Mobile-first responsive build", "Forms, tracking & thank-you flow", "Hosting & launch support"], "badge": "", "icon": "<rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 9 H21\"/><path d=\"M6 6.6 h.01 M9 6.6 h.01\"/>"}, "ai-creatives": {"id": "ai-creatives", "title": "Ad Creatives", "blurb": "100+ professional, client-ready ad creatives for Meta & LinkedIn \u2014 built fast and scaled to any format.", "features": ["100+ images across ad formats", "Meta & LinkedIn-ready sizes", "On-brand, conversion-minded visuals", "Fast turnaround"], "badge": "", "icon": "<path d=\"M12 3 L13.7 9 L20 11 L13.7 13 L12 19 L10.3 13 L4 11 L10.3 9 Z\"/>"}, "crm": {"id": "crm", "title": "CRM & Automation", "blurb": "HubSpot or Zoho set up for clean lead management that nurtures on autopilot.", "features": ["HubSpot / Zoho CRM setup", "Lead capture & pipeline stages", "Automated follow-up sequences", "Team training & handover"], "badge": "", "icon": "<circle cx=\"6\" cy=\"6\" r=\"2.4\"/><circle cx=\"18\" cy=\"6\" r=\"2.4\"/><circle cx=\"12\" cy=\"18.5\" r=\"2.4\"/><path d=\"M6 8.4 V11 a2 2 0 0 0 2 2 h8 a2 2 0 0 0 2-2 V8.4\"/><path d=\"M12 13 v3.1\"/>"}, "launch": {"id": "launch", "title": "End-to-End Campaign Launch", "blurb": "Everything to go live \u2014 domain, hosting, page, full tracking stack, ICP model and a live campaign.", "features": ["Domain, hosting & landing page", "GTM + GA4 + Microsoft Clarity", "ICP / customer modelling", "Google Ads account + campaign live"], "badge": "POPULAR", "icon": "<path d=\"M12 3 c3 2.2 4.8 6 4.8 9.8 L14 16 h-4 l-2.8-3.2 C7.2 9 9 5.2 12 3 Z\"/><path d=\"M9.2 16 L7 20.5\"/><path d=\"M14.8 16 L17 20.5\"/><circle cx=\"12\" cy=\"10\" r=\"1.5\"/>"}};
 const WA_NUMBER = '919397819397';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbxQ5J8y4mbWdr9Q1BeZMO5Jxp2UNaWuNrqrYv6cISY6lRxzrbi5EZRit7Gh_LVIQZC7/exec';
 let currentSvc=null;
 function val(id){return (document.getElementById(id)||{value:''}).value.trim();}
 function openSvc(id){
@@ -689,30 +729,42 @@ function closeSvc(){document.getElementById('overlay').classList.remove('open');
 function submitSvc(){
   const name=val('f-name'),brand=val('f-brand'),phone=val('f-phone'),website=val('f-website'),budget=val('f-budget'),msg=val('f-msg');
   if(!name||!brand||!phone){document.getElementById('m-err').textContent='Please fill your name, brand and phone.';document.getElementById('m-err').style.display='block';return;}
-  let t=`Hi Vaibhav! I'm interested in *${(currentSvc||{title:'your services'}).title}* (Vaibhyx Growth).\n\nName: ${name}\nBrand: ${brand}\nPhone: ${phone}`;
+  const svcTitle=(currentSvc||{title:'your services'}).title;
+  const payload={type:'service',service:svcTitle,timestamp:new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),name,brand,phone,website,budget,msg};
+  let t=`Hi Vaibhav! I'm interested in *${svcTitle}* (Vaibhyx Growth).\n\nName: ${name}\nBrand: ${brand}\nPhone: ${phone}`;
   if(website) t+=`\nWebsite: ${website}`;
   if(budget) t+=`\nBudget: ${budget}`;
   if(msg) t+=`\nDetails: ${msg}`;
   t+='\n\nCould you share pricing and the next steps?';
-  window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(t),'_blank');
-  closeSvc();
+  const waUrl='https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(t);
+  sendToSheet(payload).finally(()=>{
+    closeSvc();
+    window.location.href='thank-you.html?type=service&svc='+encodeURIComponent(svcTitle)+'&wa='+encodeURIComponent(waUrl);
+  });
+}
+
+// ── shared sheet sender (waits for the request, survives navigation) ──
+function sendToSheet(payload){
+  if(!GAS_URL||GAS_URL.indexOf('script.google.com')===-1) return Promise.resolve();
+  return fetch(GAS_URL,{
+    method:'POST',
+    mode:'no-cors',
+    keepalive:true,
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify(payload)
+  }).catch(()=>{});
 }
 
 // ── AUDIT MODAL ──
 function openAudit(){document.getElementById('auditOverlay').classList.add('open');document.body.classList.add('modal-open');}
 function closeAudit(){document.getElementById('auditOverlay').classList.remove('open');document.body.classList.remove('modal-open');}
 function aerr(m){const e=document.getElementById('a-err');if(m){e.textContent=m;e.style.display='block';}else{e.style.display='none';}}
-const GAS_URL = "https://script.google.com/macros/s/AKfycbzcpzarWfIZcqfBz1Z4bqXsZZCyXWLGazgC2gmGYctnEdQJGFcTnbJTjvKg0x-T121r/exec";
-  
-  function submitAudit(){
+function submitAudit(){
   const name=val('a-name'),phone=val('a-phone'),email=val('a-email'),biz=val('a-biz'),category=val('a-category'),url=val('a-url'),city=val('a-city'),budget=val('a-budget'),goal=val('a-goal'),running=val('a-running'),source=val('a-source'),msg=val('a-msg');
   if(!name||!phone||!email||!biz||!category){aerr('Please fill name, phone, email, business name and category.');return;}
   const btn=document.getElementById('a-submit-btn');
   btn.textContent='Submitting…';btn.disabled=true;
   const payload={type:'audit',timestamp:new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),name,phone,email,biz,category,url,city,budget,goal,running,source,msg};
-  if(GAS_URL&&GAS_URL!=='https://script.google.com/macros/s/AKfycbzcpzarWfIZcqfBz1Z4bqXsZZCyXWLGazgC2gmGYctnEdQJGFcTnbJTjvKg0x-T121r/exec'){
-    fetch(GAS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(()=>{});
-  }
   let t='Hi Vaibhav! I just submitted the free audit form on Vaibhyx Growth.\n\n';
   t+='Name: '+name+'\nPhone: '+phone+'\nEmail: '+email+'\nBusiness: '+biz+'\nCategory: '+category;
   if(url) t+='\nWebsite: '+url;
@@ -720,10 +772,10 @@ const GAS_URL = "https://script.google.com/macros/s/AKfycbzcpzarWfIZcqfBz1Z4bqXs
   t+='\nBudget: '+budget+'\nGoal: '+goal+'\nRunning ads: '+running+'\nFound us via: '+source;
   if(msg) t+='\nNotes: '+msg;
   const waUrl='https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(t);
-  setTimeout(()=>{
+  sendToSheet(payload).finally(()=>{
     closeAudit();
-    window.location.href='thank-you.html?wa='+encodeURIComponent(waUrl)+'&type=audit';
-  },400);
+    window.location.href='thank-you.html?type=audit&wa='+encodeURIComponent(waUrl);
+  });
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSvc();closeAudit();}});
 </script></body></html>
