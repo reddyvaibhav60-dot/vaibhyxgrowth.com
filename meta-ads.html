@@ -65,6 +65,20 @@ footer{border-top:1px solid var(--border);padding:36px 0 48px}
 .wa-fab:hover{transform:translateY(-3px)}.wa-fab .lbl{font-family:'Outfit',sans-serif}
 @media(max-width:560px){.wa-fab .lbl{display:none}.wa-fab{padding:14px;border-radius:50%}}
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");background-size:200px;opacity:.025;pointer-events:none;z-index:9997}
+
+.wide{max-width:1120px}
+.page-hero{padding:104px 0 56px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:start}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:28px}}
+.hero-grid .form-card{margin:0;max-width:none;padding:32px;position:sticky;top:84px}
+@media(max-width:900px){.hero-grid .form-card{position:static;padding:24px 18px}}
+.hero-grid .form-card h2{font-size:1.45rem}
+.hero-grid .form-card p{margin-bottom:20px;font-size:.92rem}
+.feat-sec{background:var(--s1);border-top:1px solid var(--border);padding:56px 0 72px}
+.feat-sec .features{grid-template-columns:repeat(3,1fr);margin:0 0 36px}
+@media(max-width:900px){.feat-sec .features{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.feat-sec .features{grid-template-columns:1fr}}
+.feat-cta{text-align:center}
 </style>
 </head>
 <body>
@@ -74,28 +88,19 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     <span class="logo-word">vaibhyx<span class="logo-dot">.</span><span class="logo-sub">growth</span></span>
   </a>
   <a class="btn btn-accent" href="audit.html" onclick="dlPush('cta_click','Nav','Free Audit')">Free audit &rarr;</a>
-</nav></div></header><div class="page-hero"><div class="wrap">
+</nav></div></header><div class="page-hero"><div class="wrap wide">
   <a class="back" href="index.html" onclick="dlPush('nav_back','Back','Home')">&#8592; Back to Vaibhyx Growth</a>
-  <span class="kick">Meta Ads Management</span>
-  <h1>Facebook &amp; Instagram ads<br>that <span class="hl">actually convert.</span></h1>
-  <p class="lede">Full-funnel Meta campaigns — awareness through purchase — backed by clean pixel data, tested creatives and relentless bid optimisation.</p>
-  <div style="display:flex;gap:12px;flex-wrap:wrap">
-    <a class="btn btn-accent" href="#get-quote" onclick="dlPush('cta_click','Hero','Get Quote — Meta Ads Management')">Get a free quote &rarr;</a>
-    <a class="btn btn-ghost" href="https://wa.me/919397819397?text=Hi%20Vaibhav%2C%20I%20want%20to%20know%20more%20about%20Meta%20Ads%20Management" target="_blank" rel="noopener" onclick="dlPush('cta_click','Hero','WhatsApp — Meta Ads Management')"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.821 11.821 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.523 5.21l-.999 3.648 3.964-1.04zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.414z"/></svg>&nbsp;WhatsApp</a>
-  </div>
-  <div class="features"><div class="feat"><div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2 H7 a2 2 0 0 0-2 2 v16 a2 2 0 0 0 2 2 h10 a2 2 0 0 0 2-2 V4 a2 2 0 0 0-2-2 Z"/><path d="M12 18 v-6 M9 15 h6"/></svg></div><div class="feat-body"><h4>Lead Generation</h4><p>Instant forms, landing page campaigns and Messenger flows for qualified leads.</p></div></div>
-<div class="feat"><div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 L3 6 v14 a2 2 0 0 0 2 2 h14 a2 2 0 0 0 2-2 V6 l-3-4 Z"/><path d="M3 6 h18"/><path d="M16 10 a4 4 0 0 1-8 0"/></svg></div><div class="feat-body"><h4>Catalogue / DPA</h4><p>Dynamic product ads that retarget visitors with the exact products they viewed.</p></div></div>
-<div class="feat"><div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20 v-2 a8 8 0 0 1 16 0 v2"/></svg></div><div class="feat-body"><h4>Custom & Lookalike</h4><p>Seed audiences from your CRM, pixel and engaged users — then scale with lookalikes.</p></div></div>
-<div class="feat"><div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L13.7 9 L20 11 L13.7 13 L12 19 L10.3 13 L4 11 L10.3 9 Z"/></svg></div><div class="feat-body"><h4>Creative Strategy</h4><p>Scroll-stopping static, carousel and video ads tested in structured batches.</p></div></div>
-<div class="feat"><div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5 V19 H20"/><path d="M7 15 L11 11 L14 13 L19 6.5"/></svg></div><div class="feat-body"><h4>Pixel & CAPI</h4><p>Accurate conversion data via browser pixel + Conversions API — iOS14-proof.</p></div></div>
-<div class="feat"><div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12 s4-8 11-8 11 8 11 8 s-4 8-11 8-11-8-11-8 Z"/><circle cx="12" cy="12" r="3"/></svg></div><div class="feat-body"><h4>Retargeting</h4><p>Multi-stage retargeting sequences that turn warm audiences into buyers.</p></div></div>
-</div>
-</div></div>
-<div class="form-section" id="get-quote"><div class="wrap">
-  <div class="form-card">
-    <h2>Get your Meta Ads quote</h2>
-    <p>Tell me about your brand and goals — I'll send a custom plan on WhatsApp.</p>
-    <div class="mform"><div class="mfield"><label>Your name <span class="req">*</span></label><input id="f-name" type="text" placeholder="e.g. Priya Sharma"></div>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <span class="kick">Meta Ads Management</span>
+      <h1>Facebook &amp; Instagram ads<br>that <span class="hl">actually convert.</span></h1>
+      <p class="lede">Full-funnel Meta campaigns — awareness through purchase — backed by clean pixel data, tested creatives and relentless bid optimisation.</p>
+      <a class="btn btn-ghost" href="https://wa.me/919397819397?text=Hi%20Vaibhav%2C%20I%20want%20to%20know%20more%20about%20Meta%20Ads%20Management" target="_blank" rel="noopener" onclick="dlPush('cta_click','Hero','WhatsApp — Meta Ads Management')"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.821 11.821 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.523 5.21l-.999 3.648 3.964-1.04zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.414z"/></svg>&nbsp;Prefer WhatsApp?</a>
+    </div>
+    <div class="form-card" id="get-quote">
+      <h2>Get your Meta Ads quote</h2>
+      <p>Tell me about your brand and goals — I'll send a custom plan on WhatsApp.</p>
+      <div class="mform"><div class="mfield"><label>Your name <span class="req">*</span></label><input id="f-name" type="text" placeholder="e.g. Priya Sharma"></div>
       <div class="mfield"><label>Brand / business <span class="req">*</span></label><input id="f-brand" type="text" placeholder="Your brand name"></div>
       <div class="mrow">
         <div class="mfield"><label>WhatsApp no. <span class="req">*</span></label><input id="f-phone" type="tel" placeholder="+91 98765 43210"></div>
@@ -107,8 +112,19 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <div class="merr" id="m-err"></div>
       <button class="btn btn-wa" type="button" onclick="submitForm('Meta Ads Management')"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.821 11.821 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.523 5.21l-.999 3.648 3.964-1.04zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.414z"/></svg>&nbsp;&nbsp;Continue on WhatsApp &rarr;</button>
       <p class="mnote">Free &middot; No-obligation &middot; Reply within 24 hrs</p></div>
+    </div>
   </div>
-</div></div><footer><div class="wrap"><div class="foot">
+</div></div>
+<section class="feat-sec"><div class="wrap wide">
+  <div class="features"><div class="feat"><div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2 H7 a2 2 0 0 0-2 2 v16 a2 2 0 0 0 2 2 h10 a2 2 0 0 0 2-2 V4 a2 2 0 0 0-2-2 Z"/><path d="M12 18 v-6 M9 15 h6"/></svg></div><div class="feat-body"><h4>Lead Generation</h4><p>Instant forms, landing page campaigns and Messenger flows for qualified leads.</p></div></div>
+<div class="feat"><div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 L3 6 v14 a2 2 0 0 0 2 2 h14 a2 2 0 0 0 2-2 V6 l-3-4 Z"/><path d="M3 6 h18"/><path d="M16 10 a4 4 0 0 1-8 0"/></svg></div><div class="feat-body"><h4>Catalogue / DPA</h4><p>Dynamic product ads that retarget visitors with the exact products they viewed.</p></div></div>
+<div class="feat"><div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20 v-2 a8 8 0 0 1 16 0 v2"/></svg></div><div class="feat-body"><h4>Custom & Lookalike</h4><p>Seed audiences from your CRM, pixel and engaged users — then scale with lookalikes.</p></div></div>
+<div class="feat"><div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L13.7 9 L20 11 L13.7 13 L12 19 L10.3 13 L4 11 L10.3 9 Z"/></svg></div><div class="feat-body"><h4>Creative Strategy</h4><p>Scroll-stopping static, carousel and video ads tested in structured batches.</p></div></div>
+<div class="feat"><div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5 V19 H20"/><path d="M7 15 L11 11 L14 13 L19 6.5"/></svg></div><div class="feat-body"><h4>Pixel & CAPI</h4><p>Accurate conversion data via browser pixel + Conversions API — iOS14-proof.</p></div></div>
+<div class="feat"><div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12 s4-8 11-8 11 8 11 8 s-4 8-11 8-11-8-11-8 Z"/><circle cx="12" cy="12" r="3"/></svg></div><div class="feat-body"><h4>Retargeting</h4><p>Multi-stage retargeting sequences that turn warm audiences into buyers.</p></div></div>
+</div>
+  <div class="feat-cta"><a class="btn btn-accent" href="#get-quote" onclick="dlPush('cta_click','Bottom','Back to Form — Meta Ads Management')">Get your free quote &uarr;</a></div>
+</div></section><footer><div class="wrap"><div class="foot">
   <a class="logo" href="index.html"><span class="logo-mark"><svg viewBox="0 0 44 44" width="100%" height="100%"><rect x="3" y="13" width="8" height="18" rx="3" fill="#080B12"/><rect x="18" y="7" width="8" height="24" rx="3" fill="#080B12"/><rect x="33" y="2" width="8" height="31" rx="3" fill="#080B12"/></svg></span><span class="logo-word">vaibhyx<span class="logo-dot">.</span><span class="logo-sub">growth</span></span></a>
   <a class="foot-email mono" href="mailto:vaibhav.performancemarketer@gmail.com" onclick="dlPush('cta_click','Footer','Email')">vaibhav.performancemarketer@gmail.com</a>
   <div class="foot-copy mono">&copy; 2026 Vaibhyx Growth &middot; Hyderabad, India</div>
